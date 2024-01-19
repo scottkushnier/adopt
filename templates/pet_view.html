@@ -1,0 +1,38 @@
+<head>
+  <style>
+    textarea {
+      vertical-align: top;
+    }
+  </style>
+</head>
+
+<h1>{{form.name.data}}</h1>
+<h2>({{form.species.data}}) - {{form.age.data}} yrs.</h2>
+
+{% if 'http' in form.photo_url.data %}
+<img height="150px" src="{{form.photo_url.data}}" />
+{% else %}
+<img
+  height="150px"
+  src="http://localhost:5000/static/{{form.photo_url.data}}"
+/>
+{% endif %}
+
+<form id="pet-add-form" method="POST">
+  {{ form.hidden_tag() }}
+
+  <p>
+    {{form.photo_url.label}} {{form.photo_url}} {% for error in
+    form.photo_url.errors %} {{ error }} {% endfor %}
+  </p>
+  <p>
+    {{form.notes.label}} {{form.notes}} {% for error in form.notes.errors %} {{
+    error }} {% endfor %}
+  </p>
+  <p>
+    {{form.available.label}} {{form.available}} {% for error in
+    form.available.errors %} {{ error }} {% endfor %}
+  </p>
+
+  <button type="submit">Submit</button>
+</form>
